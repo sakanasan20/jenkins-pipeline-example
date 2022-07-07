@@ -5,12 +5,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
-                sh 'mvn clean package --batch-mode'
+                build job: 'maven-project-package'
             }
             post {
                 success {
-                    echo 'Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
+                    echo 'Building... success'
                 }
             }
         }
@@ -18,6 +17,11 @@ pipeline {
             steps {
                 echo 'Deploy to Staging...'
                 build job: 'maven-project-deploy-to-staging'
+            }
+            post {
+                success {
+                    echo 'Deploy to Staging... success'
+                }
             }
         }
         stage('Deploy to Production') {
