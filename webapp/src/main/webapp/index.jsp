@@ -1,1 +1,0 @@
-Hello, World! ver 0.2
